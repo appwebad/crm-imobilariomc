@@ -5,134 +5,154 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CRM Imobiliário com IA</title>
+  <title>ImóvelPro - CRM Imobiliário com IA</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <aside class="sidebar">
-    <div class="logo">
-      <h1>Agnaldo<span>Imóveis</span></h1>
-      <p>Farol - Maceió</p>
+    <div class="brand">
+      <div class="logo">🏠</div>
+      <h1>Imóvel<span>Pro</span></h1>
+      <p>CRM Imobiliário Inteligente</p>
     </div>
 
     <nav>
-      <button class="menu active" data-page="dashboard">Dashboard</button>
-      <button class="menu" data-page="imoveis">Imóveis</button>
-      <button class="menu" data-page="clientes">Clientes</button>
-      <button class="menu" data-page="leads">Leads</button>
-      <button class="menu" data-page="ia">IA Inteligente</button>
-      <button class="menu" data-page="mapa">Google Local</button>
+      <button class="nav active" data-page="dashboard">Dashboard</button>
+      <small>IMÓVEIS</small>
+      <button class="nav" data-page="imoveis">Imóveis</button>
+      <button class="nav" data-page="captacao">Captação</button>
+      <small>CLIENTES</small>
+      <button class="nav" data-page="clientes">Clientes</button>
+      <button class="nav" data-page="leads">Leads <b>7</b></button>
+      <small>COMERCIAL</small>
+      <button class="nav" data-page="negociacoes">Negociações</button>
+      <button class="nav" data-page="agenda">Agenda</button>
+      <button class="nav" data-page="relatorios">Relatórios</button>
+      <small>SISTEMA</small>
+      <button class="nav" data-page="ia">Assistente IA</button>
+      <button class="nav" data-page="config">Configurações</button>
     </nav>
+
+    <div class="user">
+      <strong>JC</strong>
+      <div>
+        <p>João Corretor</p>
+        <span>Corretor CRECI 12345</span>
+      </div>
+    </div>
   </aside>
 
-  <main class="main">
-    <header class="topbar">
-      <input id="searchInput" type="text" placeholder="Buscar imóveis, clientes ou leads..." />
-      <div class="location">📍 Maceió - AL | Farol</div>
-    </header>
+  <main class="content">
+    <section class="ai-bar">
+      <div>
+        <h2>Assistente IA</h2>
+        <p>Pronto para ajudar seus corretores</p>
+      </div>
+      <button onclick="acaoIA('descrição')">Gerar descrição</button>
+      <button onclick="acaoIA('match')">Match inteligente</button>
+      <button onclick="acaoIA('anúncio')">Criar anúncio</button>
+      <button onclick="acaoIA('leads')">Classificar leads</button>
+      <button onclick="acaoIA('preço')">Sugerir preço</button>
+      <button onclick="acaoIA('resumo')">Resumir atendimento</button>
+    </section>
 
     <section id="dashboard" class="page active">
-      <div class="hero">
-        <h2>CRM Imobiliário com IA</h2>
-        <p>Sistema inteligente para imóveis, clientes, leads e negociações.</p>
+      <h2>Visão geral</h2>
+
+      <div class="metrics">
+        <div class="card"><span>Total de imóveis</span><strong>142</strong><p>↑ 8 este mês</p></div>
+        <div class="card"><span>Disponíveis</span><strong>89</strong><p>↑ 3 novos</p></div>
+        <div class="card yellow"><span>Clientes</span><strong>312</strong><p>↑ 22 leads</p></div>
+        <div class="card blue"><span>Visitas agendadas</span><strong>14</strong><p>Hoje: 3</p></div>
+        <div class="card"><span>Vendidos</span><strong>23</strong><p>este mês</p></div>
+        <div class="card"><span>Alugados</span><strong>30</strong><p>↑ 4 novos</p></div>
+        <div class="card"><span>Propostas</span><strong>11</strong><p>em andamento</p></div>
+        <div class="card"><span>Conversão</span><strong>34%</strong><p>↑ 5% vs mês anterior</p></div>
       </div>
 
-      <div class="cards">
-        <div class="card blue"><h3>Total de Imóveis</h3><strong id="totalImoveis">0</strong></div>
-        <div class="card yellow"><h3>Clientes</h3><strong id="totalClientes">0</strong></div>
-        <div class="card"><h3>Leads</h3><strong id="totalLeads">0</strong></div>
-        <div class="card"><h3>Negociações</h3><strong>17</strong></div>
-      </div>
-
-      <div class="grid">
+      <div class="grid two">
         <div class="panel">
-          <h3>Funil CRM</h3>
-          <div class="funil">
-            <div>Novos Leads - 128</div>
-            <div>Contato Realizado - 67</div>
-            <div>Visita Agendada - 34</div>
-            <div>Proposta - 19</div>
-            <div>Fechado - 7</div>
+          <div class="panel-title">
+            <h3>Imóveis recentes</h3>
+            <button>Ver todos ↗</button>
           </div>
+          <div id="propertyList"></div>
         </div>
 
         <div class="panel">
-          <h3>Match Inteligente</h3>
+          <div class="panel-title">
+            <h3>Funil CRM</h3>
+            <button>Analisar ↗</button>
+          </div>
+          <div id="funnel"></div>
+        </div>
+      </div>
+
+      <div class="grid three">
+        <div class="panel">
+          <h3>Match IA — Top clientes</h3>
           <div id="matchList"></div>
+        </div>
+
+        <div class="panel">
+          <h3>Agenda de hoje</h3>
+          <div id="scheduleList"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">
+            <h3>Novos leads</h3>
+            <button>Classificar com IA ↗</button>
+          </div>
+          <div id="leadList"></div>
         </div>
       </div>
     </section>
 
     <section id="imoveis" class="page">
       <h2>Cadastro de Imóveis</h2>
-
       <form id="formImovel" class="form">
-        <input id="tituloImovel" placeholder="Título do imóvel" required />
-        <input id="bairroImovel" placeholder="Bairro" required />
-        <input id="valorImovel" placeholder="Valor R$" required />
-        <select id="tipoImovel">
-          <option>Venda</option>
-          <option>Locação</option>
-        </select>
-        <select id="statusImovel">
+        <input id="titulo" placeholder="Nome do imóvel" required />
+        <input id="bairro" placeholder="Bairro" required />
+        <input id="valor" placeholder="Valor" required />
+        <select id="status">
           <option>Disponível</option>
-          <option>Vendido</option>
-          <option>Alugado</option>
+          <option>Negociação</option>
           <option>Reservado</option>
+          <option>Vendido</option>
         </select>
-        <button type="submit">Cadastrar Imóvel</button>
+        <button>Cadastrar imóvel</button>
       </form>
-
-      <div id="listaImoveis" class="list"></div>
+      <div id="listaCadastro"></div>
     </section>
 
     <section id="clientes" class="page">
-      <h2>Cadastro de Clientes</h2>
-
-      <form id="formCliente" class="form">
-        <input id="nomeCliente" placeholder="Nome do cliente" required />
-        <input id="telefoneCliente" placeholder="WhatsApp" required />
-        <input id="interesseCliente" placeholder="Interesse: casa, apto, terreno..." required />
-        <input id="rendaCliente" placeholder="Faixa de valor desejada" />
-        <button type="submit">Cadastrar Cliente</button>
-      </form>
-
-      <div id="listaClientes" class="list"></div>
+      <h2>Clientes</h2>
+      <input class="search" id="search" placeholder="Consultar cliente, imóvel ou bairro..." />
+      <div id="consultaResultado"></div>
     </section>
 
     <section id="leads" class="page">
-      <h2>Leads Recentes</h2>
-      <div id="listaLeads" class="list"></div>
+      <h2>Leads</h2>
+      <div id="allLeads"></div>
     </section>
 
     <section id="ia" class="page">
-      <h2>IA Inteligente</h2>
-
-      <div class="ia-buttons">
-        <button onclick="gerarDescricao()">Gerar descrição de imóvel</button>
-        <button onclick="criarAnuncio()">Criar anúncio para redes sociais</button>
-        <button onclick="classificarLead()">Classificar lead</button>
-        <button onclick="sugerirPreco()">Sugerir preço ideal</button>
-      </div>
-
-      <div class="panel">
-        <h3>Resultado da IA</h3>
-        <p id="resultadoIA">Clique em uma ação acima para simular a IA.</p>
+      <h2>Assistente IA</h2>
+      <div class="panel ia-result">
+        <h3>Resultado</h3>
+        <p id="resultadoIA">Clique em uma função da barra superior para simular a IA.</p>
       </div>
     </section>
 
-    <section id="mapa" class="page">
-      <h2>Google Local - Farol, Maceió</h2>
-      <iframe
-        class="map"
-        src="https://www.google.com/maps?q=Farol,Maceió,AL&output=embed"
-        loading="lazy">
-      </iframe>
-    </section>
+    <section id="captacao" class="page"><h2>Captação</h2><div class="panel">Controle de imóveis captados e proprietários.</div></section>
+    <section id="negociacoes" class="page"><h2>Negociações</h2><div class="panel">Propostas, visitas e contratos em andamento.</div></section>
+    <section id="agenda" class="page"><h2>Agenda</h2><div class="panel" id="agendaFull"></div></section>
+    <section id="relatorios" class="page"><h2>Relatórios</h2><div class="panel">Relatórios de imóveis, clientes, leads e conversão.</div></section>
+    <section id="config" class="page"><h2>Configurações</h2><div class="panel">Usuários, permissões e integrações futuras.</div></section>
   </main>
 
   <script src="script.js"></script>
 </body>
 </html>
 ```
-
