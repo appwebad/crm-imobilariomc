@@ -1,5 +1,5 @@
 
-<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -149,7 +149,71 @@
     <section id="negociacoes" class="page"><h2>Negociações</h2><div class="panel">Propostas, visitas e contratos em andamento.</div></section>
     <section id="agenda" class="page"><h2>Agenda</h2><div class="panel" id="agendaFull"></div></section>
     <section id="relatorios" class="page"><h2>Relatórios</h2><div class="panel">Relatórios de imóveis, clientes, leads e conversão.</div></section>
+    
     <section id="config" class="page"><h2>Configurações</h2><div class="panel">Usuários, permissões e integrações futuras.</div></section>
+   
+<section id="config" class="page">
+  <h2>Configurações do Sistema</h2>
+
+  <div class="admin-box">
+    <h3>Permissão de Administrador</h3>
+    <p>Digite a senha ADM para liberar cadastro, consulta e exclusão de dados.</p>
+
+    <div class="admin-login">
+      <input id="adminSenha" type="password" placeholder="Senha do administrador" />
+      <button onclick="liberarAdmin()">Liberar acesso</button>
+    </div>
+
+    <p id="adminStatus" class="admin-status">Acesso administrativo bloqueado.</p>
+  </div>
+
+  <div id="adminPanel" class="admin-panel locked">
+    <div class="tabs">
+      <button onclick="abrirAba('usuariosTab')">Usuários</button>
+      <button onclick="abrirAba('imoveisTab')">Imóveis</button>
+      <button onclick="abrirAba('leadsTab')">Leads</button>
+      <button onclick="abrirAba('anunciosTab')">Anúncios</button>
+    </div>
+
+    <div id="usuariosTab" class="admin-tab active">
+      <h3>Cadastrar Usuário</h3>
+
+      <form id="formUsuario" class="form admin-form">
+        <input id="usuarioNome" placeholder="Nome completo" required />
+        <input id="usuarioCargo" placeholder="Cargo/Função" required />
+        <input id="usuarioEmail" placeholder="E-mail" required />
+        <button>Cadastrar</button>
+      </form>
+
+      <div id="listaUsuarios"></div>
+    </div>
+
+    <div id="imoveisTab" class="admin-tab">
+      <h3>Consultar e Excluir Imóveis</h3>
+      <div id="adminImoveis"></div>
+    </div>
+
+    <div id="leadsTab" class="admin-tab">
+      <h3>Consultar e Excluir Leads</h3>
+      <div id="adminLeads"></div>
+    </div>
+
+    <div id="anunciosTab" class="admin-tab">
+      <h3>Cadastrar Anúncio</h3>
+
+      <form id="formAnuncio" class="form admin-form">
+        <input id="anuncioTitulo" placeholder="Título do anúncio" required />
+        <input id="anuncioCanal" placeholder="Canal: Instagram, Google, OLX..." required />
+        <input id="anuncioValor" placeholder="Investimento R$" required />
+        <button>Cadastrar</button>
+      </form>
+
+      <div id="listaAnuncios"></div>
+    </div>
+  </div>
+</section>
+
+
   </main>
 
   <script src="script.js"></script>
