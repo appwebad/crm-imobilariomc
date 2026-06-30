@@ -1,4 +1,4 @@
-```javascript
+
 // script.js
 
 const properties = [
@@ -223,4 +223,4 @@ renderFunnel();
 renderMatches();
 renderAgenda();
 renderLeads();
-```
+
