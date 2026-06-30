@@ -1,13 +1,420 @@
 
+/* =========================
+   RESET E VARIÁVEIS
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+:root {
+  --black: #070707;
+  --white: #ffffff;
+  --blue: #1565ff;
+  --yellow: #ffc400;
+  --gray: #f5f7fb;
+  --line: #e5e7eb;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --text: #111111;
+  --muted: #666666;
+}
+
+/* =========================
+   LAYOUT GERAL
+========================= */
+
+body {
+  background: var(--gray);
+  display: flex;
+  color: var(--text);
+}
+
+/* =========================
+   MENU LATERAL
+========================= */
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: var(--black);
+  color: var(--white);
+  padding: 22px 16px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.brand {
+  margin-bottom: 25px;
+}
+
+.logo {
+  font-size: 34px;
+}
+
+.brand h1 {
+  font-size: 24px;
+}
+
+.brand span {
+  color: var(--yellow);
+}
+
+.brand p {
+  font-size: 12px;
+  color: #cccccc;
+}
+
+nav small {
+  display: block;
+  color: #9ca3af;
+  font-size: 11px;
+  margin: 18px 0 8px;
+  font-weight: bold;
+}
+
+.nav {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--white);
+  padding: 12px;
+  border-radius: 10px;
+  text-align: left;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav:hover,
+.nav.active {
+  background: var(--blue);
+}
+
+.nav b {
+  float: right;
+  background: var(--danger);
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+/* =========================
+   USUÁRIO
+========================= */
+
+.user {
+  margin-top: 30px;
+  border-top: 1px solid #222222;
+  padding-top: 18px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.user strong {
+  background: #7c73ff;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.user span {
+  font-size: 11px;
+  color: #cccccc;
+}
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  padding: 24px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+h2 {
+  margin-bottom: 18px;
+}
+
+/* =========================
+   BARRA DE IA
+========================= */
+
+.ai-bar {
+  background: linear-gradient(135deg, #070707, #1f2937);
+  color: var(--white);
+  border-radius: 18px;
+  padding: 22px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  box-shadow: 0 10px 25px #00000022;
+}
+
+.ai-bar div {
+  margin-right: auto;
+}
+
+.ai-bar h2 {
+  color: var(--yellow);
+  font-size: 18px;
+}
+
+.ai-bar p {
+  font-size: 12px;
+  color: #dddddd;
+}
+
+.ai-bar button {
+  background: #ffffff10;
+  color: var(--white);
+  border: 1px solid #ffffff40;
+  padding: 12px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ai-bar button:hover {
+  background: var(--yellow);
+  color: var(--text);
+}
+
+/* =========================
+   CARDS DE MÉTRICAS
+========================= */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  box-shadow: 0 6px 18px #0000000d;
+}
+
+.card span {
+  font-size: 13px;
+  color: #555555;
+  font-weight: bold;
+}
+
+.card strong {
+  display: block;
+  font-size: 34px;
+  margin: 10px 0;
+}
+
+.card p {
+  font-size: 12px;
+}
+
+.card.blue {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.card.yellow {
+  background: var(--yellow);
+  color: var(--text);
+}
+
+/* =========================
+   GRIDS E PAINÉIS
+========================= */
+
+.grid {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.grid.two {
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid.three {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.panel,
 .admin-box,
 .admin-panel {
-  background: white;
+  background: var(--white);
   border: 1px solid var(--line);
   border-radius: 18px;
   padding: 22px;
+  box-shadow: 0 6px 18px #0000000d;
   margin-bottom: 20px;
-  box-shadow: 0 6px 20px rgba(0,0,0,.05);
 }
+
+.panel-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.panel-title button {
+  border: none;
+  background: none;
+  color: var(--blue);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* =========================
+   LISTAS
+========================= */
+
+.row {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.icon {
+  background: #eef4ff;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+
+.row p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.price {
+  text-align: right;
+  font-weight: bold;
+}
+
+.status {
+  display: block;
+  color: var(--blue);
+  font-size: 12px;
+}
+
+/* =========================
+   FUNIL CRM
+========================= */
+
+.funnel-item {
+  display: grid;
+  grid-template-columns: 90px 1fr 35px;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.bar {
+  height: 20px;
+  border-radius: 5px;
+  background: var(--blue);
+}
+
+.bar.yellow {
+  background: var(--yellow);
+}
+
+.bar.black {
+  background: var(--black);
+}
+
+.percent {
+  color: var(--blue);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--blue);
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.dot.yellow {
+  background: var(--yellow);
+}
+
+/* =========================
+   FORMULÁRIOS
+========================= */
+
+.form {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.form input,
+.form select,
+.search,
+.admin-login input {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  width: 100%;
+}
+
+.form button,
+.admin-login button,
+.tabs button,
+.delete-btn {
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.search {
+  margin-bottom: 20px;
+}
+
+.ia-result p {
+  line-height: 1.6;
+}
+
+/* =========================
+   ADMIN / CONFIGURAÇÕES
+========================= */
 
 .admin-login {
   display: flex;
@@ -15,32 +422,13 @@
   margin: 16px 0;
 }
 
-.admin-login input {
-  flex: 1;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-
-.admin-login button,
-.tabs button,
-.delete-btn {
-  background: var(--blue);
-  color: white;
-  border: 0;
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
 .admin-status {
   font-weight: bold;
-  color: #dc2626;
+  color: var(--danger);
 }
 
 .admin-status.ok {
-  color: #16a34a;
+  color: var(--success);
 }
 
 .locked {
@@ -72,29 +460,75 @@
 }
 
 .delete-btn {
-  background: #dc2626;
+  background: var(--danger);
 }
 
 .admin-item {
-  background: #f8fafc;
-  border: 1px solid var(--line);
-  padding: 14px;
-  border-radius: 14px;
-  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
-  gap: 12px;
   align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
 }
 
+/* =========================
+   RESPONSIVO
+========================= */
+
 @media (max-width: 900px) {
+  body {
+    display: block;
+  }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+  }
+
+  nav small {
+    display: none;
+  }
+
+  .nav {
+    min-width: max-content;
+  }
+
+  .content {
+    margin-left: 0;
+    width: 100%;
+    padding: 16px;
+  }
+
+  .metrics,
+  .grid.two,
+  .grid.three,
+  .form,
+  .admin-form {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-bar {
+    display: block;
+  }
+
+  .ai-bar button {
+    margin: 8px 5px 0 0;
+  }
+
   .admin-login,
   .admin-item {
     flex-direction: column;
     align-items: stretch;
   }
-
-  .admin-form {
-    grid-template-columns: 1fr;
-  }
 }
+
