@@ -1,4 +1,4 @@
-```css
+
 /* style.css */
 * {
   margin: 0;
@@ -437,4 +437,4 @@ h2 {
     grid-column: 2;
   }
 }
-```
+
