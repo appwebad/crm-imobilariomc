@@ -8,41 +8,43 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+<body class="bg-gray-900 text-gray-100">
     <div class="flex h-screen overflow-hidden">
-        <!-- Menu Lateral -->
-        <aside id="sidebar" class="w-64 bg-white dark:bg-gray-800 shadow-lg fixed h-full z-50 transition-all duration-300">
-            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
-                <h2 class="text-2xl font-bold text-green-600">ImóvelPro</h2>
-                <p class="text-xs text-gray-500 dark:text-gray-400">CRM Imobiliário Inteligente</p>
+        <!-- Menu Lateral COMPLETO -->
+        <aside id="sidebar" class="w-56 bg-gray-800 border-r border-gray-700 fixed h-full z-50 transition-all duration-300">
+            <div class="p-4 border-b border-gray-700">
+                <h2 class="text-xl font-bold text-blue-400">ImóvelPro</h2>
+                <p class="text-xs text-gray-400">CRM Imobiliário Inteligente</p>
             </div>
-            <nav class="p-3 space-y-1">
+            <nav class="p-2 space-y-1">
                 <a href="index.html" class="menu-item"><i class="fa fa-tachometer mr-2"></i> Dashboard</a>
                 <a href="imoveis.html" class="menu-item"><i class="fa fa-building mr-2"></i> Imóveis</a>
                 <a href="cadastro-imovel.html" class="menu-item active"><i class="fa fa-plus-circle mr-2"></i> Cadastrar Imóvel</a>
                 <a href="clientes.html" class="menu-item"><i class="fa fa-users mr-2"></i> Clientes</a>
                 <a href="cadastro-cliente.html" class="menu-item"><i class="fa fa-user-plus mr-2"></i> Cadastrar Cliente</a>
+                <a href="cadastro-corretor.html" class="menu-item"><i class="fa fa-id-card mr-2"></i> Cadastrar Corretor</a>
                 <a href="funil-crm.html" class="menu-item"><i class="fa fa-line-chart mr-2"></i> Funil CRM</a>
                 <a href="agenda.html" class="menu-item"><i class="fa fa-calendar mr-2"></i> Agenda</a>
                 <a href="relatorios.html" class="menu-item"><i class="fa fa-file-text-o mr-2"></i> Relatórios</a>
+                <a href="administracao.html" class="menu-item mt-4 border-t border-gray-700 pt-3"><i class="fa fa-cog mr-2"></i> Área Administrativa</a>
             </nav>
         </aside>
 
-        <main class="ml-64 w-full p-6 overflow-y-auto">
+        <main class="ml-56 w-full p-6 overflow-y-auto">
             <header class="mb-6">
                 <h1 class="text-2xl font-bold">Cadastrar Novo Imóvel</h1>
-                <p class="text-gray-600 dark:text-gray-400">Preencha todos os dados para incluir no sistema</p>
+                <p class="text-gray-400">Preencha todos os dados para incluir no sistema</p>
             </header>
 
-            <form id="formImovel" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 space-y-5">
+            <form id="formImovel" class="bg-gray-800 rounded-lg shadow p-6 space-y-5 border border-gray-700">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-sm font-medium mb-1">Título do Imóvel *</label>
-                        <input type="text" name="titulo" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="Ex: Apartamento 3 Quartos - Bairro Farol">
+                        <input type="text" name="titulo" required class="w-full" placeholder="Ex: Apartamento 3 Quartos - Bairro Farol">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Categoria *</label>
-                        <select name="categoria" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <select name="categoria" required class="w-full">
                             <option value="">Selecione</option>
                             <option value="Apartamento">Apartamento</option>
                             <option value="Casa">Casa</option>
@@ -53,7 +55,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Tipo de Negócio *</label>
-                        <select name="tipo" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <select name="tipo" required class="w-full">
                             <option value="">Selecione</option>
                             <option value="Venda">Venda</option>
                             <option value="Locação">Locação</option>
@@ -62,57 +64,57 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Cidade *</label>
-                        <input type="text" name="cidade" value="Cabo de Santo Agostinho" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="text" name="cidade" value="Cabo de Santo Agostinho" required class="w-full">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Bairro *</label>
-                        <input type="text" name="bairro" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="Ex: Centro, Ponte dos Carvalhos">
+                        <input type="text" name="bairro" required class="w-full" placeholder="Ex: Centro, Ponte dos Carvalhos">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">CEP</label>
-                        <input type="text" name="cep" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="00000-000">
+                        <input type="text" name="cep" class="w-full" placeholder="00000-000">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Valor (R$) *</label>
-                        <input type="number" name="valor" min="0" step="0.01" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="0,00">
+                        <input type="number" name="valor" min="0" step="0.01" required class="w-full" placeholder="0,00">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Condomínio (R$)</label>
-                        <input type="number" name="condominio" min="0" step="0.01" value="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="0,00">
+                        <input type="number" name="condominio" min="0" step="0.01" value="0" class="w-full" placeholder="0,00">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">IPTU Anual (R$)</label>
-                        <input type="number" name="iptu" min="0" step="0.01" value="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="0,00">
+                        <input type="number" name="iptu" min="0" step="0.01" value="0" class="w-full" placeholder="0,00">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Área Total (m²)</label>
-                        <input type="number" name="areaTotal" min="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="Ex: 85">
+                        <input type="number" name="areaTotal" min="0" class="w-full" placeholder="Ex: 85">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Área Construída (m²)</label>
-                        <input type="number" name="areaConstruida" min="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="Ex: 70">
+                        <input type="number" name="areaConstruida" min="0" class="w-full" placeholder="Ex: 70">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Quartos</label>
-                        <input type="number" name="quartos" min="0" value="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="number" name="quartos" min="0" value="0" class="w-full">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Suítes</label>
-                        <input type="number" name="suites" min="0" value="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="number" name="suites" min="0" value="0" class="w-full">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Banheiros</label>
-                        <input type="number" name="banheiros" min="0" value="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="number" name="banheiros" min="0" value="0" class="w-full">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Vagas de Garagem</label>
-                        <input type="number" name="garagens" min="0" value="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="number" name="garagens" min="0" value="0" class="w-full">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium mb-2">Características do Imóvel</label>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="piscina" class="w-4 h-4"> Piscina
                         </label>
@@ -142,45 +144,33 @@
 
                 <div>
                     <label class="block text-sm font-medium mb-2">Descrição do Imóvel</label>
-                    <textarea name="descricao" id="descricao" rows="5" class="w-full p-3 border rounded dark:bg-gray-700 dark:border-gray-600 resize-y" placeholder="Descreva detalhes do imóvel, localização, vantagens..."></textarea>
+                    <textarea name="descricao" id="descricao" rows="5" class="w-full resize-y" placeholder="Descreva detalhes do imóvel, localização, vantagens..."></textarea>
                     
                     <div class="flex flex-wrap gap-3 mt-3">
-                        <button type="button" id="gerarDescricao" class="btn-ia flex items-center gap-2">
-                            <i class="fa fa-magic"></i> Gerar Descrição com IA
-                        </button>
-                        <button type="button" id="sugerirPreco" class="btn-ia flex items-center gap-2">
-                            <i class="fa fa-calculator"></i> Sugerir Preço de Mercado
-                        </button>
-                        <button type="button" id="copiarWhatsapp" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm">
-                            <i class="fa fa-whatsapp mr-1"></i> Versão para WhatsApp
-                        </button>
+                        <button type="button" id="gerarDescricao" class="btn-ia"><i class="fa fa-magic mr-1"></i> Gerar Descrição com IA</button>
+                        <button type="button" id="sugerirPreco" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm"><i class="fa fa-calculator mr-1"></i> Sugerir Preço de Mercado</button>
+                        <button type="button" id="copiarWhatsapp" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm"><i class="fa fa-whatsapp mr-1"></i> Versão para WhatsApp</button>
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium mb-2">Fotos do Imóvel</label>
-                    <input type="file" id="fotoPrincipal" accept="image/jpeg, image/png, image/webp" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 mb-3">
-                    <div id="previewFoto" class="w-full max-w-xs h-40 border rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500 text-sm">
-                        <i class="fa fa-image fa-2x mb-2 block"></i>
-                        Prévia da imagem
+                    <input type="file" id="fotoPrincipal" accept="image/jpeg, image/png, image/webp" class="w-full mb-3">
+                    <div id="previewFoto" class="w-full max-w-xs h-40 border border-gray-600 rounded bg-gray-700 flex items-center justify-center text-gray-400">
+                        <i class="fa fa-image fa-2x mb-2 block"></i> Prévia da imagem
                     </div>
-                    <p class="text-xs text-gray-500 mt-1">Formatos permitidos: JPG, PNG, WebP | Tamanho máximo: 5MB</p>
+                    <p class="text-xs text-gray-400 mt-1">Formatos permitidos: JPG, PNG, WebP | Tamanho máximo: 5MB</p>
                 </div>
 
-                <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <button type="submit" class="btn-primary flex items-center gap-2">
-                        <i class="fa fa-save"></i> Salvar Imóvel
-                    </button>
-                    <a href="imoveis.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                        Cancelar
-                    </a>
+                <div class="flex gap-3 pt-4 border-t border-gray-700">
+                    <button type="submit" class="btn-primary"><i class="fa fa-save mr-1"></i> Salvar Imóvel</button>
+                    <a href="index.html" class="px-4 py-2 border border-gray-600 rounded hover:bg-gray-700 transition-colors">Cancelar</a>
                 </div>
             </form>
         </main>
     </div>
 
     <script src="js/dados.js"></script>
-    <script src="js/ia-funcoes.js"></script>
     <script>
         const form = document.getElementById("formImovel");
         const fotoInput = document.getElementById("fotoPrincipal");
@@ -188,7 +178,7 @@
         let imagemBase64 = "";
         let versoesAnuncio = {};
 
-        // Prévia e validação da imagem
+        // Prévia da imagem
         fotoInput.addEventListener("change", function() {
             const arquivo = this.files[0];
             if(!arquivo) {
@@ -212,25 +202,19 @@
             const leitor = new FileReader();
             leitor.onload = e => {
                 imagemBase64 = e.target.result;
-                preview.innerHTML = `<img src="${imagemBase64}" class="w-full h-full object-cover rounded-lg" alt="Prévia">`;
+                preview.innerHTML = `<img src="${imagemBase64}" class="w-full h-full object-cover rounded" alt="Prévia">`;
             };
             leitor.readAsDataURL(arquivo);
         });
 
-        // Gerar descrição com IA
+        // Gerar descrição IA
         document.getElementById("gerarDescricao").addEventListener("click", () => {
             const dados = Object.fromEntries(new FormData(form));
             if (!dados.titulo || !dados.categoria || !dados.bairro || !dados.valor) {
                 alert("Preencha pelo menos Título, Categoria, Bairro e Valor para gerar a descrição!");
                 return;
             }
-
-            const descricao = gerarDescricaoIA({
-                ...dados,
-                valor: Number(dados.valor),
-                areaTotal: Number(dados.areaTotal) || 0
-            });
-
+            const descricao = gerarDescricaoIA({...dados, valor: Number(dados.valor), areaTotal: Number(dados.areaTotal) || 0});
             form.descricao.value = descricao;
             versoesAnuncio = gerarVersoesAnuncio(descricao);
             alert("✅ Descrição gerada com sucesso!");
@@ -240,38 +224,25 @@
         document.getElementById("sugerirPreco").addEventListener("click", () => {
             const dados = Object.fromEntries(new FormData(form));
             if (!dados.categoria || !dados.bairro || !dados.areaTotal) {
-                alert("Preencha Categoria, Bairro e Área Total para calcular o preço de mercado!");
+                alert("Preencha Categoria, Bairro e Área Total para calcular o preço!");
                 return;
             }
-
-            const sugestao = sugerirPrecoMercado({
-                categoria: dados.categoria,
-                bairro: dados.bairro,
-                areaTotal: Number(dados.areaTotal)
-            });
-
+            const sugestao = sugerirPrecoMercado({categoria: dados.categoria, bairro: dados.bairro, areaTotal: Number(dados.areaTotal)});
             if (sugestao) {
-                alert(`📊 Sugestão de Preço de Mercado:\n\nValor médio: R$ ${sugestao.mediaMercado.toLocaleString('pt-BR')}\nValor por m²: R$ ${sugestao.valorPorM2.toLocaleString('pt-BR')}\nBaseado em ${sugestao.quantidadeAnalisada} imóveis semelhantes.`);
+                alert(`📊 Sugestão de Preço:\nValor médio: R$ ${sugestao.mediaMercado.toLocaleString('pt-BR')}\nValor/m²: R$ ${sugestao.valorPorM2.toLocaleString('pt-BR')}\nBaseado em ${sugestao.quantidadeAnalisada} imóveis semelhantes.`);
             } else {
-                alert("Não há imóveis cadastrados semelhantes para gerar uma sugestão de preço.");
+                alert("Não há dados suficientes para calcular o preço.");
             }
         });
 
-        // Copiar versão para WhatsApp
+        // Copiar WhatsApp
         document.getElementById("copiarWhatsapp").addEventListener("click", () => {
-            if (!versoesAnuncio.whatsapp && !form.descricao.value) {
-                alert("Gere ou escreva uma descrição primeiro!");
-                return;
-            }
             const texto = versoesAnuncio.whatsapp || form.descricao.value;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert("✅ Texto copiado para a área de transferência!");
-            }).catch(() => {
-                alert("❌ Não foi possível copiar automaticamente. Selecione e copie manualmente.");
-            });
+            if (!texto) return alert("Gere ou escreva uma descrição primeiro!");
+            navigator.clipboard.writeText(texto).then(() => alert("✅ Texto copiado!"));
         });
 
-        // Salvar cadastro
+        // ✅ SALVAMENTO CORRIGIDO
         form.addEventListener("submit", e => {
             e.preventDefault();
             const dados = Object.fromEntries(new FormData(form));
