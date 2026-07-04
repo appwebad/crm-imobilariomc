@@ -8,7 +8,7 @@
 body {
     font-family: 'Segoe UI', Roboto, sans-serif;
     line-height: 1.5;
-    background-color: #1a1a1a; /* Fundo escuro igual à imagem */
+    background-color: #1a1a1a;
     color: #e5e7eb;
 }
 
@@ -47,7 +47,38 @@ body {
 }
 
 /* ==============================================
-   CARDS, BOTÕES E FORMULÁRIOS
+   CAMPOS DE FORMULÁRIO → AQUI ESTÁ A ALTERAÇÃO
+   ============================================== */
+input, select, textarea {
+    background-color: #383838;
+    border: 1px solid #4a4a4a;
+    /* ✅ AQUI: cor preta, negrito e itálico */
+    color: #000000;
+    font-weight: bold;
+    font-style: italic;
+    border-radius: 6px;
+    padding: 0.5rem;
+    transition: border 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* ✅ Placeholder (texto de exemplo) também ajustado */
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+    color: #222222;
+    font-weight: bold;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* ==============================================
+   BOTÕES E COMPONENTES
    ============================================== */
 .card {
     padding: 1.25rem;
@@ -93,21 +124,6 @@ body {
 
 .btn-ia:hover {
     background-color: #f59e0b;
-}
-
-input, select, textarea {
-    background-color: #383838;
-    border: 1px solid #4a4a4a;
-    color: #f3f4f6;
-    border-radius: 6px;
-    padding: 0.5rem;
-    transition: border 0.2s ease;
-}
-
-input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
 /* ==============================================
