@@ -1,116 +1,92 @@
-// Dados salvos no navegador (persistem mesmo fechando a página)
-let imoveis = JSON.parse(localStorage.getItem("imoveis")) || [
-    {nome: "Apto 3 quartos — Farol", detalhes: "85m² • 1 suíte • 2 vagas", preco: 450000, status: "Disponível"},
-    {nome: "Casa — Ponta Verde", detalhes: "180m² • 4 quartos • piscina", preco: 980000, status: "Proposta"}
-];
+// Banco de dados local (persiste após fechar o navegador)
+let imoveis = JSON.parse(localStorage.getItem("imoveis")) || [];
+let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+let negociacoes = JSON.parse(localStorage.getItem("negociacoes")) || [];
 
-let leads = JSON.parse(localStorage.getItem("leads")) || [
-    {nome: "Roberto Lima", perfil: "Apto 3q • até R$560k", valorMax: 560000, status: "Quente"},
-    {nome: "Lucia Neves", perfil: "Casa • até R$590k", valorMax: 590000, status: "Morno"}
-];
-
-// Atualizar listas na tela
-function atualizarTela() {
-    // Lista de Imóveis
-    const listaImoveis = document.getElementById("listaImoveis");
-    listaImoveis.innerHTML = "";
-    imoveis.forEach(imovel => {
-        const li = document.createElement("li");
-        li.className = "item-imovel";
-        li.innerHTML = `
-            <div>
-                <h4>${imovel.nome}</h4>
-                <p>${imovel.detalhes}</p>
-            </div>
-            <div class="preco">
-                <p>R$ ${(imovel.preco / 1000).toFixed(0)}k</p>
-                <small>${imovel.status}</small>
-            </div>
-        `;
-        listaImoveis.appendChild(li);
-    });
-
-    // Lista de Leads
-    const listaLeads = document.getElementById("listaLeads");
-    listaLeads.innerHTML = "";
-    leads.forEach(lead => {
-        const li = document.createElement("li");
-        li.className = "item-lead";
-        li.innerHTML = `
-            <div class="avatar">${lead.nome.split(" ")[0][0]}${lead.nome.split(" ")[1][0]}</div>
-            <div>
-                <h4>${lead.nome}</h4>
-                <p>${lead.perfil}</p>
-            </div>
-            <span class="status ${lead.status.toLowerCase()}">${lead.status}</span>
-        `;
-        listaLeads.appendChild(li);
-    });
-
-    // Salvar dados no armazenamento
+// Salvar alterações
+function salvarDados() {
     localStorage.setItem("imoveis", JSON.stringify(imoveis));
-    localStorage.setItem("leads", JSON.stringify(leads));
+    localStorage.setItem("clientes", JSON.stringify(clientes));
+    localStorage.setItem("negociacoes", JSON.stringify(negociacoes));
+    atualizarDashboard();
 }
 
-// Funções dos Modais
-function abrirFormImovel() { document.getElementById("modalImovel").style.display = "block"; }
-function abrirFormLead() { document.getElementById("modalLead").style.display = "block"; }
-function fecharModal(id) { document.getElementById(id).style.display = "none"; }
+// Atualizar indicadores do Dashboard
+function atualizarDashboard() {
+    document.getElementById("totalImoveis").textContent = imoveis.length;
+    document.getElementById("imoveisDisponiveis").textContent = imoveis.filter(i => i.status === "Disponível").length;
+    document.getElementById("totalClientes").textContent = clientes.length;
+    document.getElementById("visitasHoje").textContent = negociacoes.filter(n => n.tipo === "Visita" && n.data === new Date().toISOString().slice(0,10)).length;
 
-// Salvar novo imóvel
-document.getElementById("formImovel").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const dados = e.target;
-    imoveis.push({
-        nome: dados[0].value,
-        detalhes: dados[1].value,
-        preco: Number(dados[2].value),
-        status: dados[3].value
-    });
-    atualizarTela();
-    fecharModal("modalImovel");
-    e.target.reset();
-});
+    // Carregar lista de imóveis recentes
+    const listaImoveis = document.getElementById("listaImoveisRecentes");
+    if(listaImoveis) {
+        listaImoveis.innerHTML = imoveis.slice(0,5).map(imovel => `
+            <li class="flex justify-between items-center border-b pb-2">
+                <div>
+                    <p class="font-medium">${imovel.titulo}</p>
+                    <p class="text-xs text-gray-500">${imovel.bairro} • ${imovel.categoria}</p>
+                </div>
+                <div class="text-right">
+                    <p class="font-bold">R$ ${imovel.valor.toLocaleString('pt-BR')}</p>
+                    <span class="text-xs px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700">${imovel.status}</span>
+                </div>
+            </li>
+        `).join("");
+    }
 
-// Salvar novo lead
-document.getElementById("formLead").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const dados = e.target;
-    leads.push({
-        nome: dados[0].value,
-        perfil: dados[1].value,
-        valorMax: Number(dados[2].value),
-        status: dados[3].value
-    });
-    atualizarTela();
-    fecharModal("modalLead");
-    e.target.reset();
-});
-
-// Exportar para Planilha (formato CSV)
-function exportarParaPlanilha() {
-    let conteudo = "DADOS IMÓVELPRO CRM\n\n";
-
-    // Imóveis
-    conteudo += "IMÓVEIS\nNome;Detalhes;Preço (R$);Status\n";
-    imoveis.forEach(i => {
-        conteudo += `${i.nome};${i.detalhes};${i.preco};${i.status}\n`;
-    });
-
-    conteudo += "\nLEADS\nNome;Perfil;Valor Máximo (R$);Status\n";
-    leads.forEach(l => {
-        conteudo += `${l.nome};${l.perfil};${l.valorMax};${l.status}\n`;
-    });
-
-    // Criar arquivo para download
-    const blob = new Blob([conteudo], {type: "text/csv;charset=utf-8"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `imovelpro_dados_${new Date().toISOString().slice(0,10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    // Carregar lista de leads recentes
+    const listaLeads = document.getElementById("listaLeadsRecentes");
+    if(listaLeads) {
+        listaLeads.innerHTML = clientes.slice(0,5).map(cliente => `
+            <li class="flex justify-between items-center border-b pb-2">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-800 dark:text-indigo-200 font-bold text-xs">
+                        ${cliente.nome.split(" ")[0][0]}${cliente.nome.split(" ")[1]?.[0] || ""}
+                    </div>
+                    <div>
+                        <p class="font-medium">${cliente.nome}</p>
+                        <p class="text-xs text-gray-500">${cliente.tipo}</p>
+                    </div>
+                </div>
+                <span class="text-xs px-2 py-0.5 rounded ${
+                    cliente.status === "Quente" ? "bg-red-100 text-red-800" :
+                    cliente.status === "Morno" ? "bg-yellow-100 text-yellow-800" :
+                    "bg-blue-100 text-blue-800"
+                }">${cliente.status}</span>
+            </li>
+        `).join("");
+    }
 }
 
-// Iniciar tela
-atualizarTela();
+// Função para fazer upload de imagem e salvar em base64
+function salvarImagem(input, campo) {
+    const arquivo = input.files[0];
+    if(!arquivo) return;
+    const leitor = new FileReader();
+    leitor.onload = function(e) {
+        campo.valor = e.target.result;
+    };
+    leitor.readAsDataURL(arquivo);
+}
+
+// Associar cliente a um imóvel (Match)
+function associarClienteImovel(idCliente, idImovel) {
+    const cliente = clientes.find(c => c.id === idCliente);
+    const imovel = imoveis.find(i => i.id === idImovel);
+    if(cliente && imovel) {
+        cliente.imoveisInteresse = cliente.imoveisInteresse || [];
+        cliente.imoveisInteresse.push({
+            id: imovel.id,
+            titulo: imovel.titulo,
+            valor: imovel.valor,
+            data: new Date().toISOString()
+        });
+        salvarDados();
+        return true;
+    }
+    return false;
+}
+
+// Inicializar dados
+atualizarDashboard();
