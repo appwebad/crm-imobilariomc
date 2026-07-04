@@ -8,9 +8,18 @@
 body {
     font-family: 'Segoe UI', Roboto, sans-serif;
     line-height: 1.5;
+    background-color: #f9fafb; /* Fundo geral cinza claro */
+    color: #374151; /* Texto principal cinza escuro */
 }
 
-/* Menu Lateral */
+/* ==============================================
+   MENU LATERAL
+   ============================================== */
+#sidebar {
+    background-color: #ffffff; /* Fundo branco do menu */
+    border-right: 1px solid #e5e7eb; /* Linha lateral cinza */
+}
+
 .menu-item {
     display: flex;
     align-items: center;
@@ -18,19 +27,36 @@ body {
     margin: 3px 0;
     border-radius: 6px;
     text-decoration: none;
-    color: #4b5563;
+    color: #4b5563; /* Texto cinza */
     font-size: 14px;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent; /* Linha lateral indicadora */
 }
 
+/* Hover do menu: tom azul claro */
 .menu-item:hover {
-    background-color: #e0e7ff;
-    color: #4f46e5;
+    background-color: #eff6ff; /* Azul muito claro */
+    color: #1d4ed8; /* Azul principal */
+    border-left-color: #3b82f6; /* Linha lateral azul */
 }
 
+/* Item ativo: azul com detalhe amarelo */
 .menu-item.active {
-    background-color: #4f46e5;
-    color: white;
+    background-color: #1d4ed8; /* Azul escuro */
+    color: #ffffff;
+    border-left-color: #fbbf24; /* Linha lateral amarela destaque */
+    box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.3);
+}
+
+/* Versão modo escuro */
+.dark body {
+    background-color: #111827;
+    color: #e5e7eb;
+}
+
+.dark #sidebar {
+    background-color: #1f2937;
+    border-right-color: #374151;
 }
 
 .dark .menu-item {
@@ -38,58 +64,107 @@ body {
 }
 
 .dark .menu-item:hover {
-    background-color: #374151;
-    color: #a5b4fc;
+    background-color: #1e3a8a;
+    color: #bfdbfe;
+    border-left-color: #60a5fa;
 }
 
 .dark .menu-item.active {
-    background-color: #4338ca;
-    color: white;
+    background-color: #1e40af;
+    color: #ffffff;
+    border-left-color: #fcd34d;
 }
 
-/* Cards e Botões */
+/* ==============================================
+   CARDS, BOTÕES E COMPONENTES
+   ============================================== */
 .card {
     padding: 1.25rem;
     border-radius: 0.5rem;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
 }
 
+.dark .card {
+    background-color: #1f2937;
+    border-color: #374151;
+}
+
+/* Botão principal: azul */
 .btn-primary {
     padding: 0.6rem 1rem;
     border-radius: 6px;
-    background-color: #4f46e5;
+    background-color: #1d4ed8;
     color: white;
     font-weight: 500;
     border: none;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s ease;
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .btn-primary:hover {
-    background-color: #4338ca;
+    background-color: #1e40af;
 }
 
+/* Botão IA: amarelo com tom mais escuro no hover */
 .btn-ia {
     padding: 0.5rem 0.8rem;
     border-radius: 6px;
-    background-color: #10b981;
-    color: white;
+    background-color: #fbbf24;
+    color: #92400e; /* Texto escuro para contraste */
     border: none;
     font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 .btn-ia:hover {
-    background-color: #059669;
+    background-color: #f59e0b;
 }
 
-/* Responsividade para Celulares */
+/* Campos de formulário */
+input, select, textarea {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    color: #374151;
+    border-radius: 6px;
+    transition: border 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.dark input, .dark select, .dark textarea {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
+}
+
+.dark input:focus, .dark select:focus, .dark textarea:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+}
+
+/* ==============================================
+   RESPONSIVIDADE PARA CELULARES
+   ============================================== */
 @media (max-width: 768px) {
     #sidebar {
         transform: translateX(-100%);
-        transition: transform 0.3s;
+        transition: transform 0.3s ease;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
     }
 
     #sidebar.open {
