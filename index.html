@@ -10,7 +10,7 @@
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
     <div class="flex h-screen overflow-hidden">
-        <!-- Menu Lateral (igual ao index.html) -->
+        <!-- Menu Lateral -->
         <aside id="sidebar" class="w-64 bg-white dark:bg-gray-800 shadow-lg fixed h-full z-50 transition-all duration-300">
             <div class="p-4 border-b border-gray-200 dark:border-gray-700">
                 <h2 class="text-2xl font-bold text-green-600">ImóvelPro</h2>
@@ -38,11 +38,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-sm font-medium mb-1">Título do Imóvel *</label>
-                        <input type="text" name="titulo" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="text" name="titulo" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="Ex: Apartamento 3 Quartos - Bairro Farol">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Categoria *</label>
                         <select name="categoria" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                            <option value="">Selecione</option>
                             <option value="Apartamento">Apartamento</option>
                             <option value="Casa">Casa</option>
                             <option value="Terreno">Terreno</option>
@@ -53,6 +54,7 @@
                     <div>
                         <label class="block text-sm font-medium mb-1">Tipo de Negócio *</label>
                         <select name="tipo" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                            <option value="">Selecione</option>
                             <option value="Venda">Venda</option>
                             <option value="Locação">Locação</option>
                             <option value="Venda/Locação">Ambos</option>
@@ -64,19 +66,31 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Bairro *</label>
-                        <input type="text" name="bairro" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="text" name="bairro" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="Ex: Centro, Ponte dos Carvalhos">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">CEP</label>
-                        <input type="text" name="cep" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="text" name="cep" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="00000-000">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Valor (R$) *</label>
-                        <input type="number" name="valor" min="0" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="number" name="valor" min="0" step="0.01" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="0,00">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Condomínio (R$)</label>
+                        <input type="number" name="condominio" min="0" step="0.01" value="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="0,00">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">IPTU Anual (R$)</label>
+                        <input type="number" name="iptu" min="0" step="0.01" value="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="0,00">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Área Total (m²)</label>
-                        <input type="number" name="areaTotal" min="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                        <input type="number" name="areaTotal" min="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="Ex: 85">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Área Construída (m²)</label>
+                        <input type="number" name="areaConstruida" min="0" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600" placeholder="Ex: 70">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-1">Quartos</label>
@@ -97,41 +111,69 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1">Características</label>
-                    <div class="flex flex-wrap gap-4">
-                        <label class="flex items-center gap-1">
-                            <input type="checkbox" name="piscina"> Piscina
+                    <label class="block text-sm font-medium mb-2">Características do Imóvel</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="piscina" class="w-4 h-4"> Piscina
                         </label>
-                        <label class="flex items-center gap-1">
-                            <input type="checkbox" name="areaGourmet"> Área Gourmet
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="areaGourmet" class="w-4 h-4"> Área Gourmet
                         </label>
-                        <label class="flex items-center gap-1">
-                            <input type="checkbox" name="varanda"> Varanda
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="varanda" class="w-4 h-4"> Varanda
                         </label>
-                        <label class="flex items-center gap-1">
-                            <input type="checkbox" name="jardim"> Jardim
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="jardim" class="w-4 h-4"> Jardim
                         </label>
-                        <label class="flex items-center gap-1">
-                            <input type="checkbox" name="financiamento"> Aceita Financiamento
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="aceitaFinanciamento" class="w-4 h-4"> Aceita Financiamento
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="portaria" class="w-4 h-4"> Portaria 24h
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="elevador" class="w-4 h-4"> Elevador
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="arCondicionado" class="w-4 h-4"> Ar Condicionado
                         </label>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1">Descrição</label>
-                    <textarea name="descricao" rows="4" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"></textarea>
-                    <button type="button" id="gerarDescricao" class="mt-2 btn-ia">Gerar Descrição com IA</button>
+                    <label class="block text-sm font-medium mb-2">Descrição do Imóvel</label>
+                    <textarea name="descricao" id="descricao" rows="5" class="w-full p-3 border rounded dark:bg-gray-700 dark:border-gray-600 resize-y" placeholder="Descreva detalhes do imóvel, localização, vantagens..."></textarea>
+                    
+                    <div class="flex flex-wrap gap-3 mt-3">
+                        <button type="button" id="gerarDescricao" class="btn-ia flex items-center gap-2">
+                            <i class="fa fa-magic"></i> Gerar Descrição com IA
+                        </button>
+                        <button type="button" id="sugerirPreco" class="btn-ia flex items-center gap-2">
+                            <i class="fa fa-calculator"></i> Sugerir Preço de Mercado
+                        </button>
+                        <button type="button" id="copiarWhatsapp" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm">
+                            <i class="fa fa-whatsapp mr-1"></i> Versão para WhatsApp
+                        </button>
+                    </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1">Fotos do Imóvel</label>
-                    <input type="file" id="fotoPrincipal" accept="image/*" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
-                    <div id="previewFoto" class="mt-3 w-40 h-32 border rounded bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500">Prévia da imagem</div>
+                    <label class="block text-sm font-medium mb-2">Fotos do Imóvel</label>
+                    <input type="file" id="fotoPrincipal" accept="image/jpeg, image/png, image/webp" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 mb-3">
+                    <div id="previewFoto" class="w-full max-w-xs h-40 border rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500 text-sm">
+                        <i class="fa fa-image fa-2x mb-2 block"></i>
+                        Prévia da imagem
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Formatos permitidos: JPG, PNG, WebP | Tamanho máximo: 5MB</p>
                 </div>
 
-                <div class="flex gap-3 pt-4">
-                    <button type="submit" class="btn-primary">Salvar Imóvel</button>
-                    <a href="index.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-700">Cancelar</a>
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="submit" class="btn-primary flex items-center gap-2">
+                        <i class="fa fa-save"></i> Salvar Imóvel
+                    </button>
+                    <a href="imoveis.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        Cancelar
+                    </a>
                 </div>
             </form>
         </main>
@@ -144,38 +186,127 @@
         const fotoInput = document.getElementById("fotoPrincipal");
         const preview = document.getElementById("previewFoto");
         let imagemBase64 = "";
+        let versoesAnuncio = {};
 
-        // Prévia da imagem
+        // Prévia e validação da imagem
         fotoInput.addEventListener("change", function() {
             const arquivo = this.files[0];
-            if(!arquivo) return;
+            if(!arquivo) {
+                preview.innerHTML = `<i class="fa fa-image fa-2x mb-2 block"></i> Prévia da imagem`;
+                imagemBase64 = "";
+                return;
+            }
+
+            const tiposPermitidos = ["image/jpeg", "image/png", "image/webp"];
+            if (!tiposPermitidos.includes(arquivo.type)) {
+                alert("Formato inválido! Use apenas JPG, PNG ou WebP.");
+                this.value = "";
+                return;
+            }
+            if (arquivo.size > 5 * 1024 * 1024) {
+                alert("Imagem muito grande! O tamanho máximo permitido é 5MB.");
+                this.value = "";
+                return;
+            }
+
             const leitor = new FileReader();
             leitor.onload = e => {
                 imagemBase64 = e.target.result;
-                preview.innerHTML = `<img src="${imagemBase64}" class="w-full h-full object-cover rounded">`;
+                preview.innerHTML = `<img src="${imagemBase64}" class="w-full h-full object-cover rounded-lg" alt="Prévia">`;
             };
             leitor.readAsDataURL(arquivo);
         });
 
-        // Gerar descrição IA
+        // Gerar descrição com IA
         document.getElementById("gerarDescricao").addEventListener("click", () => {
             const dados = Object.fromEntries(new FormData(form));
-            const descricao = gerarDescricaoIA({...dados, valor: Number(dados.valor)});
+            if (!dados.titulo || !dados.categoria || !dados.bairro || !dados.valor) {
+                alert("Preencha pelo menos Título, Categoria, Bairro e Valor para gerar a descrição!");
+                return;
+            }
+
+            const descricao = gerarDescricaoIA({
+                ...dados,
+                valor: Number(dados.valor),
+                areaTotal: Number(dados.areaTotal) || 0
+            });
+
             form.descricao.value = descricao;
+            versoesAnuncio = gerarVersoesAnuncio(descricao);
+            alert("✅ Descrição gerada com sucesso!");
+        });
+
+        // Sugerir preço de mercado
+        document.getElementById("sugerirPreco").addEventListener("click", () => {
+            const dados = Object.fromEntries(new FormData(form));
+            if (!dados.categoria || !dados.bairro || !dados.areaTotal) {
+                alert("Preencha Categoria, Bairro e Área Total para calcular o preço de mercado!");
+                return;
+            }
+
+            const sugestao = sugerirPrecoMercado({
+                categoria: dados.categoria,
+                bairro: dados.bairro,
+                areaTotal: Number(dados.areaTotal)
+            });
+
+            if (sugestao) {
+                alert(`📊 Sugestão de Preço de Mercado:\n\nValor médio: R$ ${sugestao.mediaMercado.toLocaleString('pt-BR')}\nValor por m²: R$ ${sugestao.valorPorM2.toLocaleString('pt-BR')}\nBaseado em ${sugestao.quantidadeAnalisada} imóveis semelhantes.`);
+            } else {
+                alert("Não há imóveis cadastrados semelhantes para gerar uma sugestão de preço.");
+            }
+        });
+
+        // Copiar versão para WhatsApp
+        document.getElementById("copiarWhatsapp").addEventListener("click", () => {
+            if (!versoesAnuncio.whatsapp && !form.descricao.value) {
+                alert("Gere ou escreva uma descrição primeiro!");
+                return;
+            }
+            const texto = versoesAnuncio.whatsapp || form.descricao.value;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("✅ Texto copiado para a área de transferência!");
+            }).catch(() => {
+                alert("❌ Não foi possível copiar automaticamente. Selecione e copie manualmente.");
+            });
         });
 
         // Salvar cadastro
         form.addEventListener("submit", e => {
             e.preventDefault();
             const dados = Object.fromEntries(new FormData(form));
+            
             const novoImovel = {
                 id: Date.now(),
-                ...dados,
-                valor: Number(dados.valor),
+                titulo: dados.titulo,
+                categoria: dados.categoria,
+                tipo: dados.tipo,
+                cidade: dados.cidade,
+                bairro: dados.bairro,
+                cep: dados.cep || "",
+                valor: Number(dados.valor) || 0,
+                condominio: Number(dados.condominio) || 0,
+                iptu: Number(dados.iptu) || 0,
+                areaTotal: Number(dados.areaTotal) || 0,
+                areaConstruida: Number(dados.areaConstruida) || 0,
+                quartos: Number(dados.quartos) || 0,
+                suites: Number(dados.suites) || 0,
+                banheiros: Number(dados.banheiros) || 0,
+                garagens: Number(dados.garagens) || 0,
+                piscina: dados.piscina === "on",
+                areaGourmet: dados.areaGourmet === "on",
+                varanda: dados.varanda === "on",
+                jardim: dados.jardim === "on",
+                aceitaFinanciamento: dados.aceitaFinanciamento === "on",
+                portaria: dados.portaria === "on",
+                elevador: dados.elevador === "on",
+                arCondicionado: dados.arCondicionado === "on",
+                descricao: dados.descricao || "",
                 status: "Disponível",
-                imagem: imagemBase64,
+                imagem: imagemBase64 || "",
                 dataCadastro: new Date().toISOString()
             };
+
             imoveis.push(novoImovel);
             salvarDados();
             alert("✅ Imóvel cadastrado com sucesso!");
