@@ -1,226 +1,116 @@
-
-// script.js
-
-const properties = [
-  ["🏠", "Apto 3 quartos — Farol", "85m² · 1 suíte · 2 vagas", "R$ 450k", "Disponível"],
-  ["🏡", "Casa — Ponta Verde", "180m² · 4 quartos · piscina", "R$ 980k", "Negociação"],
-  ["🏢", "Comercial — Centro", "120m² · andar corrido", "R$ 320k", "Disponível"],
-  ["🌴", "Terreno — Jatiúca", "400m² · esquina", "R$ 210k", "Reservado"],
-  ["🌾", "Sítio — Murici", "3ha · casa sede", "R$ 1,2M", "Disponível"]
+// Dados salvos no navegador (persistem mesmo fechando a página)
+let imoveis = JSON.parse(localStorage.getItem("imoveis")) || [
+    {nome: "Apto 3 quartos — Farol", detalhes: "85m² • 1 suíte • 2 vagas", preco: 450000, status: "Disponível"},
+    {nome: "Casa — Ponta Verde", detalhes: "180m² • 4 quartos • piscina", preco: 980000, status: "Proposta"}
 ];
 
-const funnel = [
-  ["Novo lead", 38, "blue"],
-  ["Contato", 30, "yellow"],
-  ["Visita", 20, "blue"],
-  ["Proposta", 11, "yellow"],
-  ["Negociação", 7, "black"],
-  ["Contrato", 4, "blue"],
-  ["Fechado", 3, "black"]
+let leads = JSON.parse(localStorage.getItem("leads")) || [
+    {nome: "Roberto Lima", perfil: "Apto 3q • até R$560k", valorMax: 560000, status: "Quente"},
+    {nome: "Lucia Neves", perfil: "Casa • até R$590k", valorMax: 590000, status: "Morno"}
 ];
 
-const matches = [
-  ["Maria Silva", "Apto 3q · Farol · R$500k", "96%"],
-  ["Pedro Alves", "Casa · Ponta Verde · R$1M", "89%"],
-  ["Ana Costa", "Apto 2q · Jatiúca · R$350k", "82%"],
-  ["Carlos Melo", "Comercial · Centro · R$400k", "75%"]
-];
+// Atualizar listas na tela
+function atualizarTela() {
+    // Lista de Imóveis
+    const listaImoveis = document.getElementById("listaImoveis");
+    listaImoveis.innerHTML = "";
+    imoveis.forEach(imovel => {
+        const li = document.createElement("li");
+        li.className = "item-imovel";
+        li.innerHTML = `
+            <div>
+                <h4>${imovel.nome}</h4>
+                <p>${imovel.detalhes}</p>
+            </div>
+            <div class="preco">
+                <p>R$ ${(imovel.preco / 1000).toFixed(0)}k</p>
+                <small>${imovel.status}</small>
+            </div>
+        `;
+        listaImoveis.appendChild(li);
+    });
 
-const agenda = [
-  ["09:00", "Visita — Apto Farol", "Maria Silva · Rua X, 100", "blue"],
-  ["11:30", "Reunião — Proposta", "Pedro Alves · Online", "yellow"],
-  ["14:00", "Visita — Casa Ponta Verde", "Ana Costa · Av. Y, 500", "yellow"],
-  ["16:30", "Assinatura contrato", "Carlos Melo · Escritório", "blue"]
-];
+    // Lista de Leads
+    const listaLeads = document.getElementById("listaLeads");
+    listaLeads.innerHTML = "";
+    leads.forEach(lead => {
+        const li = document.createElement("li");
+        li.className = "item-lead";
+        li.innerHTML = `
+            <div class="avatar">${lead.nome.split(" ")[0][0]}${lead.nome.split(" ")[1][0]}</div>
+            <div>
+                <h4>${lead.nome}</h4>
+                <p>${lead.perfil}</p>
+            </div>
+            <span class="status ${lead.status.toLowerCase()}">${lead.status}</span>
+        `;
+        listaLeads.appendChild(li);
+    });
 
-const leads = [
-  ["RL", "Roberto Lima", "Apto 3q · até R$600k", "Quente"],
-  ["LN", "Lucia Neves", "Casa · até R$800k", "Morno"],
-  ["FB", "Fernando Brito", "Investidor · Comercial", "Investidor"],
-  ["JS", "Juliana Santos", "Apto 2q · Locação", "Novo"]
-];
+    // Salvar dados no armazenamento
+    localStorage.setItem("imoveis", JSON.stringify(imoveis));
+    localStorage.setItem("leads", JSON.stringify(leads));
+}
 
-const navButtons = document.querySelectorAll(".nav");
-const pages = document.querySelectorAll(".page");
+// Funções dos Modais
+function abrirFormImovel() { document.getElementById("modalImovel").style.display = "block"; }
+function abrirFormLead() { document.getElementById("modalLead").style.display = "block"; }
+function fecharModal(id) { document.getElementById(id).style.display = "none"; }
 
-navButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    navButtons.forEach(item => item.classList.remove("active"));
-    pages.forEach(page => page.classList.remove("active"));
-
-    btn.classList.add("active");
-    document.getElementById(btn.dataset.page).classList.add("active");
-  });
+// Salvar novo imóvel
+document.getElementById("formImovel").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const dados = e.target;
+    imoveis.push({
+        nome: dados[0].value,
+        detalhes: dados[1].value,
+        preco: Number(dados[2].value),
+        status: dados[3].value
+    });
+    atualizarTela();
+    fecharModal("modalImovel");
+    e.target.reset();
 });
 
-function renderProperties() {
-  const container = document.getElementById("propertyList");
-  const cadastro = document.getElementById("listaCadastro");
-
-  container.innerHTML = "";
-  cadastro.innerHTML = "";
-
-  properties.forEach(item => {
-    const html = `
-      <div class="row">
-        <div class="icon">${item[0]}</div>
-        <div>
-          <h4>${item[1]}</h4>
-          <p>${item[2]}</p>
-        </div>
-        <div class="price">
-          ${item[3]}
-          <span class="status">${item[4]}</span>
-        </div>
-      </div>
-    `;
-
-    container.innerHTML += html;
-    cadastro.innerHTML += html;
-  });
-}
-
-function renderFunnel() {
-  const container = document.getElementById("funnel");
-  container.innerHTML = "";
-
-  funnel.forEach(item => {
-    container.innerHTML += `
-      <div class="funnel-item">
-        <span>${item[0]}</span>
-        <div class="bar ${item[2]}" style="width:${item[1] * 2.4}%"></div>
-        <strong>${item[1]}</strong>
-      </div>
-    `;
-  });
-}
-
-function renderMatches() {
-  const container = document.getElementById("matchList");
-  container.innerHTML = "";
-
-  matches.forEach(item => {
-    container.innerHTML += `
-      <div class="row">
-        <div class="icon">👤</div>
-        <div>
-          <h4>${item[0]}</h4>
-          <p>${item[1]}</p>
-        </div>
-        <strong class="percent">${item[2]}</strong>
-      </div>
-    `;
-  });
-}
-
-function renderAgenda() {
-  const container = document.getElementById("scheduleList");
-  const full = document.getElementById("agendaFull");
-
-  container.innerHTML = "";
-  full.innerHTML = "";
-
-  agenda.forEach(item => {
-    const html = `
-      <div class="row">
-        <strong>${item[0]}</strong>
-        <div>
-          <h4><span class="dot ${item[3]}"></span>${item[1]}</h4>
-          <p>${item[2]}</p>
-        </div>
-      </div>
-    `;
-
-    container.innerHTML += html;
-    full.innerHTML += html;
-  });
-}
-
-function renderLeads() {
-  const container = document.getElementById("leadList");
-  const all = document.getElementById("allLeads");
-
-  container.innerHTML = "";
-  all.innerHTML = "";
-
-  leads.forEach(item => {
-    const html = `
-      <div class="row">
-        <div class="icon">${item[0]}</div>
-        <div>
-          <h4>${item[1]}</h4>
-          <p>${item[2]}</p>
-        </div>
-        <strong>${item[3]}</strong>
-      </div>
-    `;
-
-    container.innerHTML += html;
-    all.innerHTML += html;
-  });
-}
-
-document.getElementById("formImovel").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const titulo = document.getElementById("titulo").value;
-  const bairro = document.getElementById("bairro").value;
-  const valor = document.getElementById("valor").value;
-  const status = document.getElementById("status").value;
-
-  properties.unshift(["🏠", `${titulo} — ${bairro}`, "Cadastro novo · dados completos", valor, status]);
-
-  renderProperties();
-  this.reset();
-  alert("Imóvel cadastrado com sucesso!");
+// Salvar novo lead
+document.getElementById("formLead").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const dados = e.target;
+    leads.push({
+        nome: dados[0].value,
+        perfil: dados[1].value,
+        valorMax: Number(dados[2].value),
+        status: dados[3].value
+    });
+    atualizarTela();
+    fecharModal("modalLead");
+    e.target.reset();
 });
 
-document.getElementById("search").addEventListener("input", function() {
-  const term = this.value.toLowerCase();
-  const result = document.getElementById("consultaResultado");
+// Exportar para Planilha (formato CSV)
+function exportarParaPlanilha() {
+    let conteudo = "DADOS IMÓVELPRO CRM\n\n";
 
-  const filtered = [...properties, ...leads].filter(item =>
-    item.join(" ").toLowerCase().includes(term)
-  );
+    // Imóveis
+    conteudo += "IMÓVEIS\nNome;Detalhes;Preço (R$);Status\n";
+    imoveis.forEach(i => {
+        conteudo += `${i.nome};${i.detalhes};${i.preco};${i.status}\n`;
+    });
 
-  result.innerHTML = "";
+    conteudo += "\nLEADS\nNome;Perfil;Valor Máximo (R$);Status\n";
+    leads.forEach(l => {
+        conteudo += `${l.nome};${l.perfil};${l.valorMax};${l.status}\n`;
+    });
 
-  filtered.forEach(item => {
-    result.innerHTML += `
-      <div class="row">
-        <div class="icon">🔎</div>
-        <div>
-          <h4>${item[1]}</h4>
-          <p>${item[2]}</p>
-        </div>
-        <strong>${item[3]}</strong>
-      </div>
-    `;
-  });
-});
-
-function acaoIA(tipo) {
-  const resultado = document.getElementById("resultadoIA");
-
-  const textos = {
-    "descrição": "Descrição gerada: Excelente imóvel em Maceió, com localização estratégica, ótimo potencial de valorização e estrutura ideal para moradia ou investimento.",
-    "match": "Match IA: Cliente Maria Silva possui 96% de compatibilidade com Apto 3 quartos no Farol, considerando valor, localização e perfil de busca.",
-    "anúncio": "Anúncio criado: Seu novo imóvel em Maceió está aqui! Agende uma visita e conheça uma oportunidade exclusiva com a ImóvelPro.",
-    "leads": "Classificação: Roberto Lima é lead quente. Recomenda-se contato imediato via WhatsApp e oferta de visita ainda hoje.",
-    "preço": "Sugestão de preço: Para imóveis no Farol, recomenda-se margem inicial de negociação entre 5% e 8%, mantendo preço competitivo.",
-    "resumo": "Resumo do atendimento: Cliente interessado em apartamento 3 quartos, orçamento até R$600k, preferência pelo bairro Farol ou Ponta Verde."
-  };
-
-  resultado.textContent = textos[tipo];
-
-  document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
-  document.getElementById("ia").classList.add("active");
-  document.querySelectorAll(".nav").forEach(btn => btn.classList.remove("active"));
+    // Criar arquivo para download
+    const blob = new Blob([conteudo], {type: "text/csv;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `imovelpro_dados_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
-renderProperties();
-renderFunnel();
-renderMatches();
-renderAgenda();
-renderLeads();
-
+// Iniciar tela
+atualizarTela();
